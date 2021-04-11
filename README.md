@@ -103,3 +103,23 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+Add json as file:
+```bash
+cd yourproject
+npm install @rollup/plugin-json --save-dev
+
+// add at the beginning of the file :
+import json from '@rollup/plugin-json'
+
+
+//...
+
+// under the plugin line :
+plugins: [
+  json({
+    compact: true
+  }),
+
+//...
+```

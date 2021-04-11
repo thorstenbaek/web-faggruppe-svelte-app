@@ -1,15 +1,22 @@
 <h1>Document List</h1>
 
+<script>
+    import documents from "../data/documents.json";       
+</script>
+
 <table>
     <thead>
-        <th>Date</th><th>Title</th><th>Author</th>
+        <th>Date</th><th>Title</th><th>Last Name</th><th>First Name</th>
     </thead>
-    <tbody>        
-        <tr>
-            <td>document.eventDate</td>
-            <td>document.title</td>
-            <td>document.author</td>
+    <tbody> 
+        {#each documents as document}       
+        <tr>            
+            <td>{document.eventTime}</td>
+            <td>{document.title}</td>
+            <td>{document.author.lastName}</td>        
+            <td>{document.author.firstName}</td>        
         </tr>        
+        {/each}
     </tbody>
 </table>
 
