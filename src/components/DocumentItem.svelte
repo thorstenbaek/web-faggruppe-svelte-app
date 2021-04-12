@@ -1,20 +1,40 @@
 <script>
+    import {localeStore} from "../stores/localeStore.js";
+
+
     export let document;
     let displayDate;
     let author;
 
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];   
+    const enMonthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];   
+
+    const noMonthNames = ["januar", "februar", "mars", "april", "mai", "juni",
+        "juli", "august", "september", "oktober", "november", "desember"];       
+
+    const typeImages = {
+        "text":"📄",
+        "image":"🖼"
+    }
 
     $: {
-        var d = new Date(document.eventTime);
-        var now = new Date();
-        if (now.getFullYear() == d.getFullYear()) {
-            displayDate = `${String(d.getDate()).padStart(2, '0')}. ${monthNames[d.getMonth()]} ${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`;
+        const d = new Date(document.eventTime);
+        const now = new Date();
+
+        if ($localeStore === "en/us") {                                
+            if (now.getFullYear() == d.getFullYear()) {
+                displayDate = `${enMonthNames[d.getMonth()]} ${d.getDate()}. ${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`;
+            } else {
+                displayDate = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+        } else if ($localeStore === "nb/no") {
+            if (now.getFullYear() == d.getFullYear()) {
+                displayDate = `${d.getDate()}. ${noMonthNames[d.getMonth()]} ${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`;
+            } else {            
+                displayDate = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth()).padStart(2, '0')}.${d.getFullYear()}`;
+            }
         }
-        
-        displayDate = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth()).padStart(2, '0')}.${d.getFullYear()}`;
+
     }    
 
     function formatName(s) {
@@ -29,7 +49,8 @@
     
 </script>
 
-<tr>            
+<tr>
+    <td>{typeImages[document.type]}</td>   
     <td>{displayDate}</td>
     <td>{document.title}</td>
     <td>{author}</td>        

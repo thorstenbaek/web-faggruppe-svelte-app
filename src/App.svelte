@@ -1,10 +1,10 @@
 <script>
 	import DocumentList from "./components/DocumentList.svelte";
+	import ToolBar from "./components/ToolBar.svelte";
 </script>
 
-<main>
-	<DocumentList/>
-</main>
+<ToolBar/>
+<DocumentList/>
 
 <style>
 </style>
